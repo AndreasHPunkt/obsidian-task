@@ -83,15 +83,13 @@
             const today = new Date().toISOString().slice(0, 10);
             const data = '- [ ] ' + task + ' ➕ ' + today + ' 📅 ' + today;
 
-            const params = new URLSearchParams({
-                vault: "Andreas' Remote Vault",
-                daily: 'true',
-                heading: 'Aufgaben erfassen',
-                data: data,
-                mode: 'append'
-            });
-
-            const url = 'obsidian://advanced-uri?' + params.toString();
+            const e = encodeURIComponent;
+            const url = 'obsidian://advanced-uri'
+                + '?vault=' + e("Andreas' Remote Vault")
+                + '&daily=true'
+                + '&heading=' + e('Aufgaben erfassen')
+                + '&data=' + e(data)
+                + '&mode=append';
 
             // Debug: URL anzeigen
             document.getElementById('debug').textContent = url;
