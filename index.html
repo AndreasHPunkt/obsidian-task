@@ -71,6 +71,8 @@
     <input type="text" id="task" placeholder="Aufgabe eingeben oder diktieren…" autocomplete="off" autofocus>
     <button onclick="addTask()">Task hinzufügen</button>
     <div class="success" id="msg">Aufgabe gesendet!</div>
+    <div id="debug" style="margin-top:24px; padding:12px; font-size:12px; color:#888; word-break:break-all; max-width:400px;"></div>
+    <a id="link" style="display:none; margin-top:16px; color:#a78bfa; font-size:16px; text-decoration:underline;">Manuell öffnen</a>
 
     <script>
         function addTask() {
@@ -91,16 +93,14 @@
 
             const url = 'obsidian://advanced-uri?' + params.toString();
 
-            // Hidden link approach - works reliably on iOS
-            const a = document.createElement('a');
-            a.href = url;
-            a.click();
+            // Debug: URL anzeigen
+            document.getElementById('debug').textContent = url;
+            const link = document.getElementById('link');
+            link.href = url;
+            link.style.display = 'block';
 
-            // Feedback & Reset
-            input.value = '';
-            const msg = document.getElementById('msg');
-            msg.classList.add('show');
-            setTimeout(function() { msg.classList.remove('show'); }, 2000);
+            // Redirect
+            window.location.href = url;
         }
 
         // Enter-Taste zum Absenden
